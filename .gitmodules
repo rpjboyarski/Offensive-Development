@@ -1,0 +1,3 @@
+[submodule "PowerShell/chameleon"]
+	path = PowerShell/chameleon
+	url = https://github.com/klezVirus/chameleon

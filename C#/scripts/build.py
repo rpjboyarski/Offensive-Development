@@ -63,7 +63,9 @@ def main():
     with open("src/Program.cs", "w") as file:
         file.write(source)
 
-    print(f"{SUCCESS} Done")
+    print(f"{EVENT} Applying obfuscation")
+    subprocess.run("mono ConfuserEx/Confuser.CLI.exe bin/Program.exe -o obfuscated", shell=True)
+    print(f"{SUCCESS} Obfuscated executable saved to bin/obfuscated")
 
 if __name__ == "__main__":
     main()
