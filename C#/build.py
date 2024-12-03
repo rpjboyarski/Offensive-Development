@@ -22,10 +22,10 @@ FAILURE = f"{BOLD}{RED}[-]{RESET} "
 def convert_to_uuid(shellcode):
     if len(shellcode) % 16 != 0:
         print(f"{WARNING} Shellcode length is not a multiple of 16 bytes")
-        print(f"{WARNING} Adding nullbytes at the end of shellcode (this might break something!)")
+        print(f"{WARNING} Adding NOPS at the end of shellcode (this might break something!)")
         print(f"{EVENT} Modified shellcode length: ", len(shellcode) + (16 - (len(shellcode) % 16)))
 
-        null_bytes = b"\x00" * (16 - (len(shellcode) % 16))
+        null_bytes = b"\x90" * (16 - (len(shellcode) % 16))
         shellcode += null_bytes
 
     uuids = []
