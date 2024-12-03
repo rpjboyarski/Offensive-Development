@@ -11,6 +11,8 @@
 #include <apihashing.h>
 #pragma GCC system_header
 #include <native.h>
+#include <memoryapi.h>
+#include <fibersapi.h>
 #include <tlhelp32.h>
 #include <gate.h>
 #include <loader.h>

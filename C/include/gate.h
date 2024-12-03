@@ -55,12 +55,13 @@ typedef struct {
         D_API( VirtualFreeEx, VirtualFreeEx )
         D_API( GetLastError, GetLastError )
         D_API( CloseHandle, CloseHandle )
-
         D_API( CreateProcessA, CreateProcessA )
         D_API( QueueUserAPC, QueueUserAPC )
         D_API( ResumeThread, ResumeThread )
         D_API( VirtualAlloc, VirtualAlloc )
         D_API( EnumChildWindows, EnumChildWindows )
+        D_API( VirtualAllocExNuma, VirtualAllocExNuma )
+        D_API( FlsAlloc, FlsAlloc )
         //
         // user32.dll
         //

